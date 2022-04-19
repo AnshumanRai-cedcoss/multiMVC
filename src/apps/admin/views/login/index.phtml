@@ -1,0 +1,34 @@
+
+<!doctype html>
+<html lang="en">
+
+  <body class="text-center">
+  <main class="form-signup" style="margin-top:10% ; padding-left:37%;padding-right:37%;">
+ 
+  <?php echo $this->tag->form(""); ?>
+  <h1 class="h3 mb-3 fw-normal">Login Please</h1>
+
+   <div class="form-floating">
+       <?php echo $this->tag->textField(["input1","class"=>"form-control","required" => "true"]); ?>
+       <label for="name">Email</label>
+      </div>
+  
+   <div class="form-floating py-2">
+        <?php echo $this->tag->passwordField(["password","class"=>"form-control","required" => "true"]); ?>
+        <label for="firstname">Password</label>
+    </div>
+   <!-- <div class="form-floating py-2">
+  
+     <p>  </p>
+     <p> <label for="remember">Remember Me</label>  </p>
+    
+  </div> -->
+   <div class="form-floating">
+        <?php echo $this->tag->submitButton(
+    ["Login","name"=> "login", "class" => "w-100 btn btn-lg btn-primary"]
+); ?>
+    </div>
+</form>
+</main>  
+  </body>
+</html>
