@@ -70,23 +70,12 @@ class Module implements ModuleDefinitionInterface
                 ]
             );
         });
-
-        $di->set(
-            'config',
-            function () {
-                $fileName = APP_PATH . '/etc/config.php';
-                $factory  = new ConfigFactory();
-                return $factory->newInstance('php', $fileName);
-            },
-            true
-        );
-
         $di->set(
             'mongo',
             function () {
                 $mongo = new \MongoDB\Client("mongodb://mongo", array("username" => 'root', "password" => "password123"));
         
-                return $mongo->test;
+                return $mongo->store;
             },
             true
         );

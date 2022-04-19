@@ -7,7 +7,8 @@ use Phalcon\Di\DiInterface;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 use Phalcon\Mvc\View;
-use Phalcon\Config;
+use Phalcon\Logger\AdapterFactory;
+use Phalcon\Logger\LoggerFactory;
 use Phalcon\Config\ConfigFactory;
 
 class Module implements ModuleDefinitionInterface
@@ -21,6 +22,7 @@ class Module implements ModuleDefinitionInterface
             [
                 'Multiple\Admin\Controllers' => '../apps/admin/controllers/',
                 'Multiple\Admin\Models'      => '../apps/admin/models/',
+                'Multiple\Admin\Components'  => '../apps/admin/components/'
             ]
         );
 
@@ -70,12 +72,27 @@ class Module implements ModuleDefinitionInterface
         $container->set(
             'mongo',
             function () {
-                $mongo = new \MongoDB\Client("mongodb://mongo", array("username" => 'root', "password" => "password123"));
-        
+                $mongo = new \MongoDB\Client("mongodb://mongo", 
+                array("username" => 'root',
+                    "password" => "password123"));
                 return $mongo->store;
             },
             true
         );
+
+        $container->set( 
+            'mylogs',
+            function() {
+                $adapters = [
+                    "main"  => new \Phalcon\Logger\Adapter\Stream(BASE_PATH."/storage/log/main.log")
+                ];
+                $adapterFactory = new AdapterFactory();
+                $loggerFactory  = new LoggerFactory($adapterFactory);
+                
+                return $loggerFactory->newInstance('prod-logger', $adapters);
+            }, 
+            true
+         );
         
 
     }

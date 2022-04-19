@@ -12,7 +12,7 @@ use Phalcon\Mvc\Application as BaseApplication;
 
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
-define('APP_PATH', BASE_PATH . '/app');
+define('APP_PATH', BASE_PATH . '/apps/');
 
 class Application extends BaseApplication
 {
@@ -52,18 +52,11 @@ class Application extends BaseApplication
                 'action'     => 'index',
             ])->setName('admin-login');
 
-            $router->add("/admin/products/:action", [
+            $router->add("/admin/:controller/:action", [
                 'module'     => 'admin',
-                'controller' => 'products',
-                'action'     => 1,
-            ])->setName('admin-product');
-
-            $router->add("/products/:action", [
-                'module'     => 'frontend',
-                'controller' => 'products',
-                'action'     => 1,
-            ])->setName('frontend-product');
-
+                'controller' => 1,
+                'action'     => 2,
+            ])->setName('backend-products');
             return $router;
         });
 
